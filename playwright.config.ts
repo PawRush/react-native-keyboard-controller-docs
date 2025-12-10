@@ -6,6 +6,7 @@ const config: PlaywrightTestConfig = {
   webServer: {
     port: 3000,
     command: "yarn docusaurus serve",
+    reuseExistingServer: true,
   },
   projects: [
     {
