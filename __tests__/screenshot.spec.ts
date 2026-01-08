@@ -6,17 +6,22 @@ import { test } from "@playwright/test";
 import { extractSitemapPathnames, pathnameToArgosName } from "./utils";
 
 // Constants
-const siteUrl = "http://localhost:3000";
+const siteUrl = process.env.BASE_URL ?? "http://localhost:3000";
 const sitemapPath = "./build/sitemap.xml";
 const stylesheetPath = "./__tests__/screenshot.css";
 const stylesheet = fs.readFileSync(stylesheetPath).toString();
+
+// Skip screenshot tests when testing against remote URLs
+// Screenshot comparisons require pixel-perfect matches that don't work with deployed sites
+const isRemoteUrl = process.env.BASE_URL && !process.env.BASE_URL.includes("localhost");
+const testFn = isRemoteUrl ? test.skip : test;
 
 function waitForDocusaurusHydration() {
   return document.documentElement.dataset.hasHydrated === "true";
 }
 
 function screenshotPathname(pathname: string) {
-  test(`pathname ${pathname}`, async ({ page }) => {
+  testFn(`pathname ${pathname}`, async ({ page }) => {
     const url = siteUrl + pathname;
 
     await page.goto(url);
