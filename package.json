@@ -13,8 +13,7 @@
     "https": "HTTPS=true SSL_CRT_FILE=localhost.pem SSL_KEY_FILE=localhost-key.pem docusaurus start",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typescript": "tsc",
-    "postinstall": "patch-package"
+    "typescript": "tsc"
   },
   "dependencies": {
     "@docusaurus/core": "3.4.0",
