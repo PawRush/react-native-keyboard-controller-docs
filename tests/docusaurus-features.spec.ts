@@ -13,8 +13,6 @@ import { test, expect } from "@playwright/test";
  * - Responsive design
  */
 
-const BASE_URL = "http://localhost:3000/react-native-keyboard-controller/";
-
 /**
  * Wait for Docusaurus hydration to complete
  * This ensures the page is fully interactive before running tests
@@ -30,7 +28,7 @@ test.describe("Documentation Navigation and Sidebar", () => {
     page,
   }) => {
     // Navigate to the docs homepage
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Check that the sidebar is visible
@@ -57,7 +55,7 @@ test.describe("Documentation Navigation and Sidebar", () => {
   });
 
   test("should expand and collapse sidebar categories", async ({ page }) => {
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Find a collapsible category in the sidebar
@@ -80,7 +78,7 @@ test.describe("Documentation Navigation and Sidebar", () => {
   });
 
   test("should navigate using navbar links", async ({ page }) => {
-    await page.goto(BASE_URL);
+    await page.goto("/react-native-keyboard-controller/");
     await waitForHydration(page);
 
     // Click on Guides link in navbar
@@ -99,7 +97,7 @@ test.describe("Documentation Navigation and Sidebar", () => {
     await waitForHydration(page);
 
     // Navigate to Blog
-    await page.goto(BASE_URL);
+    await page.goto("/react-native-keyboard-controller/");
     await waitForHydration(page);
     const blogLink = page.locator('a:has-text("Blog")').first();
     await blogLink.click();
@@ -114,7 +112,7 @@ test.describe("Version Switching Functionality", () => {
   test("should display version dropdown and switch between versions", async ({
     page,
   }) => {
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Find the version dropdown button
@@ -155,7 +153,7 @@ test.describe("Version Switching Functionality", () => {
     page,
   }) => {
     // Navigate to a specific version
-    await page.goto(BASE_URL + "docs/1.18.0/installation");
+    await page.goto("/react-native-keyboard-controller/docs/1.18.0/installation");
     await waitForHydration(page);
 
     // Verify we're on version 1.18.0
@@ -174,7 +172,7 @@ test.describe("Version Switching Functionality", () => {
 
 test.describe("Dark/Light Theme Toggle", () => {
   test("should toggle between dark and light themes", async ({ page }) => {
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Find the theme toggle button
@@ -205,7 +203,7 @@ test.describe("Dark/Light Theme Toggle", () => {
   test("should persist theme preference across page navigation", async ({
     page,
   }) => {
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     const themeToggle = page.locator('button[class*="toggleButton"]');
@@ -219,7 +217,7 @@ test.describe("Dark/Light Theme Toggle", () => {
     const darkTheme = await htmlElement.getAttribute("data-theme");
 
     // Navigate to a different page
-    await page.goto(BASE_URL + "docs/category/api-reference");
+    await page.goto("/react-native-keyboard-controller/docs/category/api-reference");
     await waitForHydration(page);
 
     // Check that theme is still the same
@@ -232,7 +230,7 @@ test.describe("Search Functionality (Algolia)", () => {
   test("should open search modal and display search input", async ({
     page,
   }) => {
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Find and click the search button
@@ -250,7 +248,7 @@ test.describe("Search Functionality (Algolia)", () => {
   });
 
   test("should perform search and display results", async ({ page }) => {
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Open search
@@ -285,7 +283,7 @@ test.describe("Search Functionality (Algolia)", () => {
   });
 
   test("should close search modal with ESC key", async ({ page }) => {
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Open search
@@ -309,7 +307,7 @@ test.describe("Code Snippet Rendering", () => {
   test("should render code blocks with syntax highlighting", async ({
     page,
   }) => {
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Find a code block - use more general selector
@@ -323,7 +321,7 @@ test.describe("Code Snippet Rendering", () => {
   });
 
   test("should have copy button for code blocks", async ({ page }) => {
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Find code block with copy button
@@ -363,7 +361,7 @@ test.describe("Code Snippet Rendering", () => {
   });
 
   test("should support different programming languages", async ({ page }) => {
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Check for code blocks
@@ -380,7 +378,7 @@ test.describe("Responsive Design", () => {
     // Set mobile viewport
     await page.setViewportSize({ width: 375, height: 667 });
 
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Look for hamburger menu button
@@ -403,7 +401,7 @@ test.describe("Responsive Design", () => {
   }) => {
     await page.setViewportSize({ width: 375, height: 667 });
 
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Desktop sidebar should be hidden on mobile
@@ -420,7 +418,7 @@ test.describe("Responsive Design", () => {
     // Set tablet viewport
     await page.setViewportSize({ width: 768, height: 1024 });
 
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Main content should be visible
@@ -443,7 +441,7 @@ test.describe("Responsive Design", () => {
     // Set desktop viewport
     await page.setViewportSize({ width: 1920, height: 1080 });
 
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Desktop sidebar should be visible
@@ -462,7 +460,7 @@ test.describe("Responsive Design", () => {
 
 test.describe("Additional Documentation Features", () => {
   test("should have working GitHub and external links", async ({ page }) => {
-    await page.goto(BASE_URL + "docs/installation");
+    await page.goto("/react-native-keyboard-controller/docs/installation");
     await waitForHydration(page);
 
     // Find GitHub link in navbar
@@ -475,7 +473,7 @@ test.describe("Additional Documentation Features", () => {
   });
 
   test("should display breadcrumbs navigation", async ({ page }) => {
-    await page.goto(BASE_URL + "docs/category/api-reference");
+    await page.goto("/react-native-keyboard-controller/docs/category/api-reference");
     await waitForHydration(page);
 
     // Look for breadcrumbs
@@ -492,7 +490,7 @@ test.describe("Additional Documentation Features", () => {
   });
 
   test("should have working footer links", async ({ page }) => {
-    await page.goto(BASE_URL);
+    await page.goto("/react-native-keyboard-controller/");
     await waitForHydration(page);
 
     // Scroll to footer
