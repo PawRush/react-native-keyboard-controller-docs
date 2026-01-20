@@ -1,6 +1,9 @@
 node_modules/
 .docusaurus/
 
+# build output
+build/
+
 # playwright
 test-results/
 playwright-report/
