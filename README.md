@@ -26,11 +26,23 @@ This command generates static content into the `build` directory and can be serv
 
 ## Deployment
 
-Deployed at: https://d24nw37vjnfh9d.cloudfront.net/react-native-keyboard-controller, using the [deploy-frontend-app] Agent Standard Operation Procedure from the [AWS MCP](https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html).
+**Automated CI/CD Pipeline:** https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/RNKbdDocsPipeline/view
 
-Deployment command: `./scripts/deploy.sh`
+**Preview:** https://d24nw37vjnfh9d.cloudfront.net/react-native-keyboard-controller
+
+Deploy to production: `git push origin deploy-to-aws-20260127_182622-sergeyka`
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for full details.
+
+Created with the [deploy-frontend-app] and [setup-pipeline] Agent Standard Operation Procedures from the [AWS MCP](https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html).
+
+### Manual Deployment
+
+For manual preview deployments (bypasses pipeline):
+
+```bash
+./scripts/deploy.sh
+```
 
 ### Legacy GitHub Pages Deployment
 
