@@ -36,21 +36,27 @@ export class FrontendStack extends cdk.Stack {
     });
 
     // Extension rewrite function for Docusaurus with trailingSlash: false
-    // Rewrites /path to /path.html
+    // Handles both /path -> /path.html and directory indexes
     const extensionRewriteFunction = new cloudfront.Function(this, "ExtensionRewriteFunction", {
       runtime: cloudfront.FunctionRuntime.JS_2_0,
       code: cloudfront.FunctionCode.fromInline(`
         function handler(event) {
           const request = event.request;
-          const uri = request.uri;
-          // Don't rewrite if it already has an extension or is root
-          if (!uri.includes('.') && uri !== '/') {
+          var uri = request.uri;
+
+          // If path ends with /, append index.html
+          if (uri.endsWith('/')) {
+            request.uri = uri + 'index.html';
+          }
+          // If no extension and not ending with /, add .html
+          else if (!uri.includes('.')) {
             request.uri = uri + '.html';
           }
+
           return request;
         }
       `),
-      comment: "Rewrites /path to /path.html for Docusaurus",
+      comment: "Rewrites /path to /path.html and handles directory indexes for Docusaurus",
     });
 
     const cloudfrontToS3 = new CloudFrontToS3(this, "CFToS3", {
@@ -75,7 +81,6 @@ export class FrontendStack extends cdk.Stack {
       insertHttpSecurityHeaders: false,
       cloudFrontDistributionProps: {
         comment: `${id} - ${environment}`,
-        defaultRootObject: "react-native-keyboard-controller/index.html",
         defaultBehavior: {
           responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
           functionAssociations: [
