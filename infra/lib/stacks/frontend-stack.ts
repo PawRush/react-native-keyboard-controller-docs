@@ -41,14 +41,23 @@ export class FrontendStack extends cdk.Stack {
       code: cloudfront.FunctionCode.fromInline(`
         function handler(event) {
           const request = event.request;
-          const uri = request.uri;
+          var uri = request.uri;
+
+          // Handle base path root
+          if (uri === '/react-native-keyboard-controller' || uri === '/react-native-keyboard-controller/') {
+            request.uri = '/react-native-keyboard-controller/index.html';
+            return request;
+          }
+
+          // Add .html extension for paths without file extensions
           if (!uri.includes('.') && uri !== '/') {
             request.uri = uri + '.html';
           }
+
           return request;
         }
       `),
-      comment: "Rewrites /path to /path.html",
+      comment: "Rewrites /path to /path.html and handles base path root",
     });
 
     const cloudfrontToS3 = new CloudFrontToS3(this, "CFToS3", {
