@@ -28,8 +28,8 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 - [x] Step 9: Validate CDK Synth
 
 ## Phase 3: Deploy and Validate
-- [ ] Step 10: Execute CDK Deployment
-- [ ] Step 11: Validate CloudFormation Stack
+- [x] Step 10: Execute CDK Deployment
+- [x] Step 11: Validate CloudFormation Stack
 
 ## Phase 4: Update Documentation
 - [ ] Step 12: Finalize Deployment Plan
@@ -43,12 +43,13 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 - Output Directory: build/
 - Base Path: /react-native-keyboard-controller/
 - Trailing Slash: false
-- Deployment URL: (pending)
-- Stack Name: (pending)
-- Distribution ID: (pending)
-- S3 Bucket Name: (pending)
-- CloudFront Log Bucket: (pending)
-- S3 Log Bucket: (pending)
+- Deployment URL: https://d2zkwitkxti0yw.cloudfront.net/react-native-keyboard-controller/
+- Stack Name: RNKeyboardFrontend-preview-sergeyka
+- Distribution ID: E38Y0OEU680IRW
+- S3 Bucket Name: rnkeyboardfrontend-preview--cftos3s3bucketcae9f2be-rbvvhdmxcbre
+- CloudFront Log Bucket: rnkeyboardfrontend-previe-cftos3cloudfrontloggingb-2zfycqeyglkv
+- S3 Log Bucket: rnkeyboardfrontend-previe-cftos3s3loggingbucket64b-7tfsygqablk3
+- Deployment Timestamp: 2026-01-27T11:54:09Z
 
 ## Recovery Guide
 
