@@ -10,13 +10,16 @@ last_updated: 2026-01-27T18:50:00Z
 
 # Deployment Summary
 
-Your app is deployed to AWS! Preview URL: https://d24nw37vjnfh9d.cloudfront.net/react-native-keyboard-controller
+Your app is deployed to AWS with automated CI/CD!
 
-**Next Step: Automate Deployments**
+**Preview Deployment:** https://d24nw37vjnfh9d.cloudfront.net/react-native-keyboard-controller
+**Production Pipeline:** https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/RNKbdDocsPipeline/view
 
-You're currently using manual deployment. To automate deployments from GitHub, ask your coding agent to set up AWS CodePipeline using an agent SOP for pipeline creation. Try: "create a pipeline using AWS SOPs"
+**Automated Deployments Enabled!**
 
-Services used: CloudFront, S3, CloudFormation, IAM
+Push to branch `deploy-to-aws-20260127_182622-sergeyka` to automatically deploy to production.
+
+Services used: CodePipeline, CodeBuild, CloudFront, S3, CloudFormation, IAM, CodeConnections
 
 Questions? Ask your Coding Agent:
  - What resources were deployed to AWS?
@@ -25,17 +28,26 @@ Questions? Ask your Coding Agent:
 ## Quick Commands
 
 ```bash
-# View deployment status
+# View pipeline status
+aws codepipeline get-pipeline-state --name "RNKbdDocsPipeline" --query 'stageStates[*].[stageName,latestExecution.status]' --output table
+
+# View build logs
+aws logs tail "/aws/codebuild/RNKbdDocsPipelineStack-PipelineBuildSynthCdkBuildProject" --follow
+
+# Trigger pipeline manually
+aws codepipeline start-pipeline-execution --name "RNKbdDocsPipeline"
+
+# Deploy to production
+git push origin deploy-to-aws-20260127_182622-sergeyka
+
+# Manual preview deployment (bypasses pipeline)
+./scripts/deploy.sh
+
+# View preview deployment status
 aws cloudformation describe-stacks --stack-name "RNKbdDocsFrontend-preview-sergeyka" --query 'Stacks[0].StackStatus' --output text
 
-# Invalidate CloudFront cache
-aws cloudfront create-invalidation --distribution-id "E39G638LYOFEIL" --paths "/*"
-
-# View CloudFront access logs (last hour)
-aws s3 ls "s3://rnkbddocsfrontend-preview-cftos3cloudfrontloggingb-ws37giw1l48z/" --recursive | tail -20
-
-# Redeploy
-./scripts/deploy.sh
+# View production deployment status
+aws cloudformation describe-stacks --stack-name "RNKbdDocsFrontend-prod" --query 'Stacks[0].StackStatus' --output text
 ```
 
 ## Production Readiness
@@ -116,3 +128,47 @@ Progress:
 - Validated deployment
 
 Status: All phases completed successfully
+
+---
+
+# Pipeline Setup
+
+Created with the [setup-pipeline] Agent Standard Operation Procedure from the [AWS MCP](https://docs.aws.amazon.com/aws-mcp/latest/userguide/what-is-mcp-server.html).
+
+## Pipeline Architecture
+
+- **Pipeline Name:** RNKbdDocsPipeline
+- **Trigger:** Push to `deploy-to-aws-20260127_182622-sergeyka` branch
+- **Stages:**
+  1. Source - Pull from GitHub via CodeConnection
+  2. Build (Synth) - Secret scanning + CDK synthesis
+  3. UpdatePipeline - Self-mutation (if pipeline changed)
+  4. Assets - Publish file/Docker assets
+  5. Deploy - Deploy production stack
+
+## Production Deployment
+
+The pipeline automatically deploys to:
+- **Stack:** RNKbdDocsFrontend-prod
+- **URL:** (will be available after first pipeline run completes)
+
+## How to Deploy
+
+Simply push changes to the configured branch:
+```bash
+git push origin deploy-to-aws-20260127_182622-sergeyka
+```
+
+The pipeline will:
+1. Run secret scanning with secretlint
+2. Build the frontend
+3. Deploy to production
+4. Invalidate CloudFront cache
+
+## Pipeline Info
+
+- Pipeline ARN: arn:aws:codepipeline:us-east-1:126593893432:RNKbdDocsPipeline
+- CodeConnection ARN: arn:aws:codeconnections:us-east-1:126593893432:connection/c140aa0c-7407-42c9-aa4b-7c81f5faf40b
+- Repository: PawRush/react-native-keyboard-controller-docs
+- Branch: deploy-to-aws-20260127_182622-sergeyka
+
