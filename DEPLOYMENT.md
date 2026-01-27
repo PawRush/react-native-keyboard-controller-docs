@@ -76,6 +76,11 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 - [x] Step 12: Finalize Deployment Plan
 - [x] Step 13: Update README.md
 
+## Phase 5: Pipeline Setup
+- [ ] Step 14: Create CDK Pipeline Stack
+- [ ] Step 15: Deploy Pipeline
+- [ ] Step 16: Update Documentation
+
 ## Deployment Info
 
 - Framework: Docusaurus
