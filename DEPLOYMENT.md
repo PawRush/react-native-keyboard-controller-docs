@@ -10,13 +10,17 @@ last_updated: 2026-01-28T13:35:00Z
 
 # Deployment Summary
 
-Your app is deployed to AWS! Preview URL: https://d36wd7f6erioxo.cloudfront.net/react-native-keyboard-controller/index.html
+Your app is deployed to AWS with automated CI/CD!
 
-**Next Step: Automate Deployments**
+**Production URL:** https://d36wd7f6erioxo.cloudfront.net/react-native-keyboard-controller/index.html (RNKeyboardFrontend-prod - deployed via pipeline)
 
-You're currently using manual deployment. To automate deployments from GitHub, ask your coding agent to set up AWS CodePipeline using an agent SOP for pipeline creation. Try: "create a pipeline using AWS SOPs"
+**Preview URL:** https://d36wd7f6erioxo.cloudfront.net/react-native-keyboard-controller/index.html (RNKeyboardFrontend-preview-sergeyka - manual deployment)
 
-Services used: CloudFront, S3, CloudFormation, IAM
+**Pipeline:** Changes pushed to the `deploy-to-aws-20260128_131744-sergeyka` branch are automatically deployed to production.
+
+**Pipeline Console:** https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/RNKeyboardPipeline/view
+
+Services used: CodePipeline, CodeBuild, CodeConnections, CloudFront, S3, CloudFormation, IAM
 
 Questions? Ask your Coding Agent:
  - What resources were deployed to AWS?
@@ -25,16 +29,22 @@ Questions? Ask your Coding Agent:
 ## Quick Commands
 
 ```bash
-# View deployment status
+# View pipeline status
+aws codepipeline get-pipeline-state --name "RNKeyboardPipeline" --query 'stageStates[*].[stageName,latestExecution.status]' --output table
+
+# Trigger pipeline manually
+aws codepipeline start-pipeline-execution --name "RNKeyboardPipeline"
+
+# View build logs
+aws logs tail "/aws/codebuild/RNKeyboardPipelineStack-Synth" --follow
+
+# View production deployment status
+aws cloudformation describe-stacks --stack-name "RNKeyboardFrontend-prod" --query 'Stacks[0].StackStatus' --output text
+
+# View preview deployment status
 aws cloudformation describe-stacks --stack-name "RNKeyboardFrontend-preview-sergeyka" --query 'Stacks[0].StackStatus' --output text
 
-# Invalidate CloudFront cache
-aws cloudfront create-invalidation --distribution-id "E1Z73IA0TTBWGD" --paths "/*"
-
-# View CloudFront access logs (last hour)
-aws s3 ls "s3://rnkeyboardfrontend-previe-cftos3cloudfrontloggingb-qqf8ue1owqgr/" --recursive | tail -20
-
-# Redeploy
+# Manual redeploy (preview environment)
 ./scripts/deploy.sh
 ```
 
