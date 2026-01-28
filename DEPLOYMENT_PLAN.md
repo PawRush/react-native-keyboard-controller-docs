@@ -62,7 +62,7 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 
 ## Phase 3: Documentation
 - [x] Step 7: Finalize Deployment Plan
-- [ ] Step 8: Update README.md
+- [x] Step 8: Update README.md
 
 ## Deployment Info
 
