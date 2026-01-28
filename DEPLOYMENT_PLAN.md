@@ -5,7 +5,7 @@ app_name: RNKeyboard
 app_type: Frontend Application (Docusaurus)
 branch: deploy-to-aws-20260128_131744-sergeyka
 created: 2026-01-28T13:17:44Z
-last_updated: 2026-01-28T13:26:00Z
+last_updated: 2026-01-28T13:35:00Z
 ---
 
 # Deployment Plan: React Native Keyboard Controller Docs
@@ -29,8 +29,8 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 - [x] Step 9: Validate CDK Synth
 
 ## Phase 3: Deploy and Validate
-- [ ] Step 10: Execute CDK Deployment
-- [ ] Step 11: Validate CloudFormation Stack
+- [x] Step 10: Execute CDK Deployment
+- [x] Step 11: Validate CloudFormation Stack
 
 ## Phase 4: Update Documentation
 - [ ] Step 12: Finalize Deployment Plan
@@ -45,12 +45,14 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 - Base Path: `/react-native-keyboard-controller/`
 - Trailing Slash: false
 - CloudFront Config: extensionRewriteFunction (rewrites /path to /path.html)
-- Deployment URL: [after completion]
-- Stack name: [after creation]
-- Distribution ID: [after creation]
-- S3 Bucket Name: [after creation]
-- CloudFront Log Bucket: [after creation]
-- S3 Log Bucket: [after creation]
+- Deployment URL: https://d36wd7f6erioxo.cloudfront.net/react-native-keyboard-controller/index.html
+- Stack name: RNKeyboardFrontend-preview-sergeyka
+- Distribution ID: E1Z73IA0TTBWGD
+- Distribution Domain: d36wd7f6erioxo.cloudfront.net
+- S3 Bucket Name: rnkeyboardfrontend-preview--cftos3s3bucketcae9f2be-isslrxyunjbf
+- CloudFront Log Bucket: rnkeyboardfrontend-previe-cftos3cloudfrontloggingb-qqf8ue1owqgr
+- S3 Log Bucket: rnkeyboardfrontend-previe-cftos3s3loggingbucket64b-v4ow6cujbn7c
+- Deployment Timestamp: 2026-01-28T13:34:58Z
 
 ## Recovery Guide
 
