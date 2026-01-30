@@ -12,9 +12,11 @@ completed: 2026-01-30T05:28:00Z
 
 Your app is deployed to AWS! Preview URL: https://d16csi8blmb657.cloudfront.net/react-native-keyboard-controller/index.html
 
-**Next Step: Automate Deployments**
+**Automated Deployments Configured! ✅**
 
-You're currently using manual deployment. To automate deployments from GitHub, ask your coding agent to set up AWS CodePipeline using an agent SOP for pipeline creation. Try: "create a pipeline using AWS SOPs"
+Your app now has automated CI/CD via AWS CodePipeline. Push to `deploy-to-aws-20260130_032535-sergeyka` branch to trigger deployments.
+
+Pipeline: https://us-east-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/KbdCtrlDocsPipeline/view
 
 Services used: CloudFront, S3, CloudFormation, IAM
 
@@ -25,16 +27,22 @@ Questions? Ask your Coding Agent:
 ## Quick Commands
 
 ```bash
+# Check pipeline status
+aws codepipeline get-pipeline-state --name "KbdCtrlDocsPipeline" --query 'stageStates[*].[stageName,latestExecution.status]' --output table
+
+# View build logs
+aws logs tail "/aws/codebuild/KbdCtrlDocsPipelineStack-Synth" --follow
+
+# Trigger pipeline manually (usually auto-triggers on push)
+aws codepipeline start-pipeline-execution --name "KbdCtrlDocsPipeline"
+
 # View deployment status
-aws cloudformation describe-stacks --stack-name "KbdCtrlDocsFrontend-preview-sergeyka" --query 'Stacks[0].StackStatus' --output text
+aws cloudformation describe-stacks --stack-name "KbdCtrlDocsFrontend-prod" --query 'Stacks[0].StackStatus' --output text
 
 # Invalidate CloudFront cache
 aws cloudfront create-invalidation --distribution-id "E2RWDULEHTE4O9" --paths "/*"
 
-# View CloudFront access logs (last hour)
-aws s3 ls "s3://kbdctrldocsfrontend-previ-cftos3cloudfrontloggingb-yy2buny8mlv1/" --recursive | tail -20
-
-# Redeploy
+# Manual deploy (if needed)
 ./scripts/deploy.sh
 ```
 
@@ -96,7 +104,16 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 
 ## Deployment Info
 
-- Deployment URL: https://d16csi8blmb657.cloudfront.net/react-native-keyboard-controller/index.html
+### Production (Automated via Pipeline)
+- Production URL: (deploying via pipeline)
+- Stack name: KbdCtrlDocsFrontend-prod
+- Pipeline: KbdCtrlDocsPipeline
+- Pipeline ARN: arn:aws:codepipeline:us-east-1:126593893432:KbdCtrlDocsPipeline
+- Source Branch: deploy-to-aws-20260130_032535-sergeyka
+- CodeConnection: arn:aws:codeconnections:us-east-1:126593893432:connection/c140aa0c-7407-42c9-aa4b-7c81f5faf40b
+
+### Preview Environment (Manual Deployment)
+- Preview URL: https://d16csi8blmb657.cloudfront.net/react-native-keyboard-controller/index.html
 - Stack name: KbdCtrlDocsFrontend-preview-sergeyka
 - Distribution ID: E2RWDULEHTE4O9
 - Distribution Domain: d16csi8blmb657.cloudfront.net
