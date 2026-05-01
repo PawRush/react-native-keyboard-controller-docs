@@ -5,7 +5,7 @@ app_name: KbdCtrlDocs
 app_type: Frontend Application (Docusaurus)
 branch: deploy-to-aws-20260501_121659-kamielw
 created: 2026-05-01 11:04:34 UTC
-last_updated: 2026-05-01 11:04:34 UTC
+last_updated: 2026-05-01 11:17:20 UTC
 ---
 
 # Deployment Plan: KbdCtrlDocs
@@ -15,26 +15,26 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 **IMPORTANT**: Update this plan after EACH step completes. Mark the step `[x]` and update `last_updated` timestamp.
 
 ## Phase 1: Gather Context and Configure
-- [ ] Step 0: Inform User of Execution Flow
-- [ ] Step 1: Create Deployment Plan
-- [ ] Step 2: Create Deploy Branch
-- [ ] Step 3: Detect Build Configuration
-- [ ] Step 4: Validate Prerequisites
-- [ ] Step 5: Revisit Deployment Plan
+- [x] Step 0: Inform User of Execution Flow
+- [x] Step 1: Create Deployment Plan
+- [x] Step 2: Create Deploy Branch
+- [x] Step 3: Detect Build Configuration
+- [x] Step 4: Validate Prerequisites
+- [x] Step 5: Revisit Deployment Plan
 
 ➡️ Phase 1 Checkpoint
 
 ## Phase 2: Build CDK Infrastructure
-- [ ] Step 6: Initialize CDK Foundation
-- [ ] Step 7: Generate CDK Stack
-- [ ] Step 8: Create Deployment Script
-- [ ] Step 9: Validate CDK Synth
+- [x] Step 6: Initialize CDK Foundation
+- [x] Step 7: Generate CDK Stack
+- [x] Step 8: Create Deployment Script
+- [x] Step 9: Validate CDK Synth
 
 ➡️ Phase 2 Checkpoint
 
 ## Phase 3: Deploy and Validate
-- [ ] Step 10: Execute CDK Deployment
-- [ ] Step 11: Validate CloudFormation Stack
+- [x] Step 10: Execute CDK Deployment
+- [x] Step 11: Validate CloudFormation Stack
 
 ➡️ Phase 3 Checkpoint
 
@@ -46,14 +46,15 @@ Coding Agents should follow this Deployment Plan, and validate previous progress
 
 ## Deployment Info
 
-- Deployment URL: [pending]
-- Stack name: [pending]
-- Distribution ID: [pending]
-- S3 Bucket: [pending]
-- CloudFront Log Bucket: [pending]
-- S3 Log Bucket: [pending]
+- Deployment URL: https://d1mpoowyx4879c.cloudfront.net/react-native-keyboard-controller/index.html
+- Stack name: KbdCtrlDocsFrontend-preview-kamielw
+- Distribution ID: E3BRNQ9A6SYIHD
+- Distribution Domain: d1mpoowyx4879c.cloudfront.net
+- S3 Bucket: kbdctrldocsfrontend-preview-cftos3s3bucketcae9f2be-pfcd3dzahz6o
+- CloudFront Log Bucket: kbdctrldocsfrontend-previ-cftos3cloudfrontloggingb-jhoo87sibjzr
+- S3 Log Bucket: kbdctrldocsfrontend-previ-cftos3s3loggingbucket64b-lxbernpfdekj
 - AWS Account: 189681391221
-- AWS Region: us-east-1
+- AWS Region: eu-central-1
 
 ## Build Configuration
 
