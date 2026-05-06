@@ -39,14 +39,19 @@ export class FrontendStack extends cdk.Stack {
       code: cloudfront.FunctionCode.fromInline(`
         function handler(event) {
           const request = event.request;
-          const uri = request.uri;
-          if (!uri.includes('.') && uri !== '/') {
+          let uri = request.uri;
+
+          if (uri === '/') {
+            request.uri = '/react-native-keyboard-controller/index.html';
+          } else if (uri === '/react-native-keyboard-controller' || uri === '/react-native-keyboard-controller/') {
+            request.uri = '/react-native-keyboard-controller/index.html';
+          } else if (!uri.includes('.') && uri !== '/') {
             request.uri = uri + '.html';
           }
           return request;
         }
       `),
-      comment: "Rewrites /path to /path.html for Docusaurus",
+      comment: "Rewrites /path to /path.html for Docusaurus with base path handling",
     });
 
     const cloudfrontToS3 = new CloudFrontToS3(this, "CFToS3", {
@@ -71,7 +76,7 @@ export class FrontendStack extends cdk.Stack {
       insertHttpSecurityHeaders: false,
       cloudFrontDistributionProps: {
         comment: `${id} - ${environment}`,
-        defaultRootObject: "react-native-keyboard-controller/index.html",
+        defaultRootObject: "",
         defaultBehavior: {
           responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
           functionAssociations: [
